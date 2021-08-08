@@ -130,7 +130,7 @@ storiesOf("InterviewerList", module)
   .add("Preselected", () => (
     <InterviewerList
       interviewers={interviewers}
-      interviewer={3}
+      value={3}
       onChange={action("setInterviewer")}
     />
   ));
@@ -146,7 +146,7 @@ storiesOf("Appointment", module)
   .add("Show", () => 
     <Show 
       student="Lydia Miller-Jones"
-      interviewer={interviewers[0]}
+      interviewer={interviewer}
       onEdit={action("onEdit")} 
       onDelete={action("onDelete")} 
     />)
@@ -166,15 +166,15 @@ storiesOf("Appointment", module)
     <Form
       interviewers={interviewers}
       onSave={action("onSave")}
-      onCancel={action("onSave")}
+      onCancel={action("onCancel")}
     />)
   .add("Edit", () => 
     <Form
-      name="student name"
+      name="Lydia Miller"
       interviewers={interviewers}
       interviewer={interviewer.id}
       onSave={action("onSave")}
-      onCancel={action("onSave")}
+      onCancel={action("onCancel")}
     />)
   .add("Appointment Empty", () => (
     <Fragment>
