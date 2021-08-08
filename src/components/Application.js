@@ -2,52 +2,35 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
 import DayList from "components/DayList";
-const axios = require('axios');
-
-
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "4pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Palmer Sylvia",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-  
-];
+import axios from "axios";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 
 export default function Application(props) {
-  const [state, setState] = useState({ day: "Monday", days: [], appointments: {} });
+  const [state, setState] = useState({
+    day: "Monday", 
+    days: [], 
+    appointments: {}
+  });
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+
+  // function to update the dayList
   const setDay = day => setState({ ...state, day });
-  const setDays = days => setState(prev => ({ ...prev, days }));
+  
 
   useEffect(() => {
-    axios.get("/api/days").then((response) => {
-      setDays([...response.data])
-    });
+    Promise.all([
+      axios.get('api/days'),
+      axios.get('api/appointments'),
+      axios.get('api/interviewers')
+    ])
+    .then(all => {
+      console.log(all);
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
+    })
   }, []);
+
 
   return (
     <main className="layout">
@@ -66,7 +49,7 @@ export default function Application(props) {
         </>}
       </section>
       <section className="schedule">
-        {appointments.map(appointment => {
+        {dailyAppointments.map(appointment => {
           return (
             <Appointment key={appointment.id} {...appointment} />
           )
