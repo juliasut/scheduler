@@ -2,22 +2,40 @@ import React from 'react';
 import './styles.scss';
 
 import useVisualMode from 'hooks/useVisualMode';
-import Header from "components/Appointment/Header";
-import Show from "components/Appointment/Show";
-import Empty from "components/Appointment/Empty";
+import Header from "./Header";
+import Show from "./Show";
+import Empty from "./Empty";
 import Form from './Form';
+import Status from './Status';
 
 // modes of the Appointment to shift between
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 
 export default function Appointment(props) {
+  
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
     );
 
+    function save(name, interviewer) {
+      
+      const interview = {
+        student: name,
+        interviewer
+      };
+      console.log("interview: ", interview);
+      console.log("props.id: ", props.id);
+      transition(SAVING);
+
+      console.log("Next calling bookInterview: ", interview);
+      props.bookInterview(props.id, interview)
+        .then(() => transition(SHOW))
+        .catch(err => console.log(err));
+    }
 
   return (
     <article className="appointment">
@@ -27,17 +45,18 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onEdit={}
-          onDelete={}
+          // onEdit={}
+          // onDelete={}
         />)}
       {mode === CREATE && (
         <Form
-          name={props.interview.student}
+          // name={props.interview.student}
           interviewers={props.interviewers}
-          interviewer={props.interview.interviewer.id}
-          onSave={}
+          // interviewer={props.interview.interviewer.id}
+          onSave={ save }
           onCancel={ back }
         />)}
+      {mode === SAVING && <Status message="SAVING" />}
     </article>
   );
 }

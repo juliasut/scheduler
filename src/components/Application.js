@@ -7,6 +7,7 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 
 
 export default function Application(props) {
+  // const { bookInterview, cancelInterview } = props;
   const [state, setState] = useState({
     day: "Monday", 
     days: [], 
@@ -15,9 +16,35 @@ export default function Application(props) {
   });
 
   
-  // function to update the dayList
+  // function to update the dayList when sidebar is clicked
   const setDay = day => setState({ ...state, day });
-  
+
+
+
+  // function(takes appointment id and interview) passed to each Appointment to change the local state when we book an interview using save function
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+    const appointment = { ...state.appointments[id], interview: { ...interview }};
+    const appointments = { ...state.appointments, [id]: appointment};
+
+    // Make the request with the correct endpoint using the appointment id, with the interview data in the body, we should receive a 204 No Content response.
+    // When the response comes back we update the state using the existing setState.
+    // Transition to SHOW when the promise returned by props.bookInterview resolves. This means that the PUT request is complete.
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(responce => {
+        console.log("responce", responce);
+        setState({ ...state, appointments})
+
+      })
+      .catch(err => console.log(err))
+  }
+
+
+
+
+  function cancelInterview() {
+
+  }
   
   useEffect(() => {
     Promise.all([
@@ -26,13 +53,18 @@ export default function Application(props) {
       axios.get('api/interviewers')
     ])
     .then(all => {
-      console.log(all);
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     })
   }, []);
   
+  // Create an array of Appointment objects for the day
   const appointments = getAppointmentsForDay(state, state.day);
+
+  // Create interviewers array for the day
   const interviewers = getInterviewersForDay(state, state.day);
+
+  // Generate Appointment component
+
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
       return (
@@ -42,6 +74,8 @@ export default function Application(props) {
           time={appointment.time}
           interview={interview}
           interviewers={interviewers}
+          bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
         />
       );
   })
