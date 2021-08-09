@@ -33,3 +33,10 @@ export function getInterview(state, interview) {
 // spread interview object and set new interviewer key -> later interviewer value overwrites the prev one
   return { ...interview, interviewer};
 }
+
+export function getInterviewersForDay(state, day) {
+  const selectedDay = state.days.find(stateDay => stateDay.name === day);
+  // in case of faulsy value (days array length is 0, or day in undefined), return empty array
+  if (!state.days || !selectedDay) return [];
+  return selectedDay.interviewers.map(id => state.interviewers[id]);
+}
