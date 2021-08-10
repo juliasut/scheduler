@@ -23,11 +23,12 @@ const SHOW = "SHOW";
 
 
 export default function Appointment(props) {
+  
   const { id, time, interview, interviewers, bookInterview, cancelInterview } = props;
 
   // State hook to transition forward and backward in history
   const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
+    interview ? SHOW : EMPTY
     );
   
 
