@@ -7,6 +7,8 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Form from './Form';
 import Status from './Status';
+import Confirm from './Confirm';
+import Error from './Error';
 
 // modes of the Appointment to shift between
 const EMPTY = "EMPTY";
@@ -60,14 +62,26 @@ export default function Appointment(props) {
         />)}
       {mode === CREATE && (
         <Form
-          // name={props.interview.student}
           interviewers={props.interviewers}
-          // interviewer={props.interview.interviewer.id}
+          onSave={ save }
+          onCancel={ back }
+        />)}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewers={props.interviewers}
+          interviewer={props.interview.interviewer.id}
           onSave={ save }
           onCancel={ back }
         />)}
       {mode === SAVING && <Status message="SAVING" />}
       {mode === DELETING && <Status message="DELETING" />}
+      {mode === CONFIRM && (
+      <Confirm
+        message="Are you sure you would like to delete?"
+        onConfirm={() => deleting(props.id)}
+        onCancel={ back }
+      />)}
     </article>
   );
 }
