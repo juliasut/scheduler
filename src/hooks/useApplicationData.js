@@ -33,6 +33,32 @@ export default function useApplicationData(props) {
   }, []);
 
 
+  const updateSpots = (state, day) => {
+    const currentDay = day || state.day;
+
+    // We need to find the current day object
+    const currentDayObj = state.days.find(dayObj => dayObj.name === currentDay);
+    const currentDayObjIndex = state.days.findIndex(dayObj => dayObj.name === currentDay);
+
+    // We need to ask for the appointment ids
+    const listOfApptIds = currentDayObj.appointments;
+
+    // We need to check every appointment to see if they're free or not
+    const listOfFreeAppointments = listOfApptIds.filter(apptId => !state.appointments[apptId].interview);
+
+    // We need to update the spots values on the day object
+    const newSpots = listOfFreeAppointments.length;
+  
+    const updatedState = { ...state };
+    updatedState.days = [...state.days];
+    const updatedDay = { ...currentDayObj };
+    updatedDay.spots = newSpots;
+    updatedState.days[currentDayObjIndex] = updatedDay;
+  
+    return updatedState;
+  }
+
+
   // function(takes appointment id and interview {}) passed to each Appointment to change the local state when we book an interview using save function
   function bookInterview(id, interview) {
     const appointment = { ...state.appointments[id], interview: { ...interview }};
@@ -45,9 +71,8 @@ export default function useApplicationData(props) {
     */
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(response => {
-        setState({ ...state, appointments})
+        setState(updateSpots({ ...state, appointments}));
       })
-      .catch(err => console.log(err));
   }
 
   /*
@@ -60,7 +85,7 @@ export default function useApplicationData(props) {
 
     return axios.delete(`/api/appointments/${id}`)
       .then(response => {
-        setState({...state, appointments})
+        setState(updateSpots({...state, appointments}));
       });
   }
 
