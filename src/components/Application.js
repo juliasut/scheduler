@@ -23,7 +23,7 @@ export default function Application(props) {
 
   // function(takes appointment id and interview) passed to each Appointment to change the local state when we book an interview using save function
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    
     const appointment = { ...state.appointments[id], interview: { ...interview }};
     const appointments = { ...state.appointments, [id]: appointment};
 
@@ -31,19 +31,23 @@ export default function Application(props) {
     // When the response comes back we update the state using the existing setState.
     // Transition to SHOW when the promise returned by props.bookInterview resolves. This means that the PUT request is complete.
     return axios.put(`/api/appointments/${id}`, { interview })
-      .then(responce => {
-        console.log("responce", responce);
+      .then(response => {
         setState({ ...state, appointments})
-
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
 
 
 
-  function cancelInterview() {
+  function cancelInterview(id) {
+    const appointment = { ...state.appointments[id], interview: null};
+    const appointments = { ...state.appointments, [id]: appointment};
 
+    return axios.delete(`/api/appointments/${id}`)
+      .then(response => {
+        setState({...state, appointments})
+      });
   }
   
   useEffect(() => {

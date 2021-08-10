@@ -13,6 +13,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
 
 
 export default function Appointment(props) {
@@ -21,22 +22,26 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
     );
 
-    function save(name, interviewer) {
-      
-      const interview = {
-        student: name,
-        interviewer
-      };
-      console.log("interview: ", interview);
-      console.log("props.id: ", props.id);
-      transition(SAVING);
+  function save(name, interviewer) {
+    
+    const interview = {
+      student: name,
+      interviewer
+    };
+    console.log("interview: ", interview);
+    console.log("props.id: ", props.id);
+    transition(SAVING);
 
-      console.log("Next calling bookInterview: ", interview);
-      props.bookInterview(props.id, interview)
-        .then(() => transition(SHOW))
-        .catch(err => console.log(err));
-    }
+    console.log("Next calling bookInterview: ", interview);
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(err => console.log(err));
+  }
 
+  function delete(id) {
+    
+  }
+  
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -57,6 +62,7 @@ export default function Appointment(props) {
           onCancel={ back }
         />)}
       {mode === SAVING && <Status message="SAVING" />}
+      {mode === DELETING && <Status message="DELETING" />}
     </article>
   );
 }
