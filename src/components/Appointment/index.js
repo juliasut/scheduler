@@ -40,16 +40,16 @@ export default function Appointment(props) {
     transition(SAVING);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true));
+      .catch(error => transition(ERROR_SAVE, true));
   }
 
 
   // Helper to update mode when deleting appointment
-  function destroy(id) {
+  function destroy(event) {
     transition(DELETING, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true))
+      .catch(error => transition(ERROR_DELETE, true));
   }
 
 
