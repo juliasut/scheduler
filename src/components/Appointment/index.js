@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './styles.scss';
 
@@ -25,6 +26,7 @@ const SHOW = "SHOW";
 export default function Appointment(props) {
   
   const { id, time, interview, interviewers, bookInterview, cancelInterview } = props;
+  
 
   // State hook to transition forward and backward in history
   const { mode, transition, back } = useVisualMode(

@@ -1,3 +1,4 @@
+
 import React from "react";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
@@ -24,6 +25,7 @@ export default function Application(props) {
   // Generate Appointment component
   const schedule = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
+    
       return (
         <Appointment 
           key={appointment.id}
