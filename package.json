@@ -42,9 +42,8 @@
     "@testing-library/react": "^8.0.4",
     "@testing-library/react-hooks": "^1.1.0",
     "babel-loader": "^8.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.24.0",
     "node-sass": "^4.11.0",
+    "prop-types": "^15.7.2",
     "react-test-renderer": "^16.9.0-alpha.0"
   },
   "jest": {
