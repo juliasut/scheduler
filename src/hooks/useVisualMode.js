@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react';
 
 // Custom hook that manages state while moving through the app
 export default function useVisualMode(initial) {
@@ -23,7 +23,7 @@ export default function useVisualMode(initial) {
       setHistory([...history.slice(0, -1)]);
       // set the mode to the previous item in our history array, second to last
       setMode(history[history.length - 2]);
-    };
+    }
   }
 
   return { mode, transition, back };
