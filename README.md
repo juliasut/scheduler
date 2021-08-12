@@ -11,10 +11,10 @@ Jest tests are used through the development of the project.
 
 # Final Product
 
-
-![User Experience]()
-![User Experience]()
-![User Experience]()
+![User experience]()
+![Storybook Components]()
+![Jest]()
+![Cypress]()
 
 
 ## Project Features
@@ -48,9 +48,12 @@ Testing: Storybook, Webpack Dev Server, Jest, Cypress
 - axios
 - classnames
 - normalize.css
+- prop-types
 - react
 - react-dom
+- react-hooks-testing-library
 - react-scripts
+- react-test-renderer
 - babel/core
 - storybook/addon-actions
 - storybook/addon-backgrounds
@@ -61,12 +64,14 @@ Testing: Storybook, Webpack Dev Server, Jest, Cypress
 - testing-library/react
 - testing-library/react-hooks
 - babel-loader
+- cypress
 - node-sass
-- react-test-renderer
+
 
 ## Setup
 
 Install dependencies with `npm install`.
+
 
 ## Running Webpack Development Server
 
@@ -85,3 +90,6 @@ npm test
 ```sh
 npm run storybook
 ```
+
+# For Scheduler API - clone and start the server
+`https://github.com/lighthouse-labs/scheduler-api.git`
