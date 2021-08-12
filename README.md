@@ -13,8 +13,8 @@ Jest tests are used through the development of the project.
 
 ![User experience]()
 ![Storybook Components]()
-![Jest]()
-![Cypress]()
+![Jest](docs/jest.png)
+![Cypress](https://github.com/juliasut/scheduler/blob/master/docs/cypress.gif)
 
 
 ## Project Features
@@ -84,7 +84,9 @@ npm start
 ```sh
 npm test
 ```
-
+```sh
+npm test -- --coverage --watchAll=false
+```
 ## Running Storybook Visual Testbed
 
 ```sh
