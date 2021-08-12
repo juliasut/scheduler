@@ -52,11 +52,9 @@ const fixtures = {
     },
   },
 };
-export default {
-  defaults: { baseURL: "" },
 
-  get: /*jest.fn*/((url) => {
-    // console.log("Here >>>>>>>>>>>>>>>>>>>>>>>>>>");
+export default {
+  get: (url) => {
     if (url === '/api/days') {
       return Promise.resolve({
         status: 200,
@@ -74,27 +72,27 @@ export default {
       });
     }
 
-    if (url === "/api/interviewers") {
+    if (url === '/api/interviewers') {
       /* Resolve interviewers data */
       return Promise.resolve({
         status: 200,
-        statusText: "OK",
+        statusText: 'OK',
         data: fixtures.interviewers,
       });
     }
-  }),
+  },
 
-  put: /*jest.fn*/((url) => {
+  put: (url) => {
     return Promise.resolve({
       status: 204,
-      statusText: "No Content",
+      statusText: 'No Content',
     });
-  }),
+  },
 
-  delete: /*jest.fn*/((url) => {
+  delete: (url) => {
     return Promise.resolve({
       status: 204,
-      statusText: "No Content",
+      statusText: 'No Content',
     });
-  }),
+  },
 };

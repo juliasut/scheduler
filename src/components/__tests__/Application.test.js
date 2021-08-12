@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 import {
   render,
   cleanup,
@@ -10,7 +10,7 @@ import {
   getByAltText,
   getByPlaceholderText,
   getAllByTestId,
-  queryByText
+  queryByText,
 } from '@testing-library/react';
 
 import Application from 'components/Application';
