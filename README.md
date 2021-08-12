@@ -10,10 +10,19 @@ Jest tests are used through the development of the project.
 
 
 # Final Product
+### User can browse through, create, edit, and delete appointments
+![User experience](https://github.com/juliasut/scheduler/blob/master/docs/user_experience.gif)
 
-![User experience]()
-![Storybook Components]()
+
+### Testing with Storybook Visual Testbed
+![Storybook Components](https://github.com/juliasut/scheduler/blob/master/docs/storybook.gif)
+
+
+### Jest Test Runner
 ![Jest](docs/jest.png)
+
+
+### End-to-End testing with Cypress
 ![Cypress](https://github.com/juliasut/scheduler/blob/master/docs/cypress.gif)
 
 
