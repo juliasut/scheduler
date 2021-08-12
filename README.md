@@ -92,4 +92,6 @@ npm run storybook
 ```
 
 ## For Scheduler API - clone and start the server
-`git clone https://github.com/lighthouse-labs/scheduler-api.git`
+```sh
+git clone https://github.com/lighthouse-labs/scheduler-api.git
+```
