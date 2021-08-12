@@ -147,7 +147,7 @@ describe('Application', () => {
     await waitForElement(() => getByText(container, 'Archie Cohen'));
 
     const appointment = getAllByTestId(container, 'appointment').find(
-      appointment => queryByText(appointment, 'Archie Cohen')
+      (appointment) => queryByText(appointment, 'Archie Cohen')
     );
 
     fireEvent.click(queryByAltText(appointment, 'Delete'));
